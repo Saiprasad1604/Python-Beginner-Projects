@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Number Guessing Game</title>
+</head>
+<body>
+    <h2>🎯 Number Guessing Game</h2>
+
+    {% if 'number' not in session %}
+        <form method="POST">
+            <label>Enter Lower Bound: <input type="number" name="low" required></label><br>
+            <label>Enter Upper Bound: <input type="number" name="high" required></label><br>
+            <button type="submit">Start Game</button>
+        </form>
+    {% else %}
+        <p>Guess the number between {{ session['low'] }} and {{ session['high'] }}</p>
+        <form method="POST">
+            <input type="number" name="guess" required>
+            <button type="submit">Submit Guess</button>
+        </form>
+        <p>{{ session['message'] }}</p>
+        <p>Attempt {{ session['guess_count'] }} of {{ session['chances'] }}</p>
+        <a href="{{ url_for('reset') }}">Restart Game</a>
+    {% endif %}
+</body>
+</html>
